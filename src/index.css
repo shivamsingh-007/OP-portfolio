@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0A0A0A;
+  --ink-deep: #050508;
+  --ink-mid: #121212;
+  --ink-panel: #1A1A1F;
+  --ink-grey: #2D2D33;
+  --ink-wash: #3D3D44;
+  --paper: #F5F0E8;
+  --blood: #C41E3A;
+  --crimson: #E83E5A;
+  --blood-glow: #C41E3A66;
+  --white: #FFFFFF;
+  --cyan: #00D4FF;
+  --magenta: #FF00FF;
+  --yellow: #FFE330;
+  --font-display: 'Bangers', system-ui, sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 150ms var(--ease);
+  --t-base: 300ms var(--ease);
+  --t-slow: 600ms var(--ease);
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-full: 9999px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+::selection { background: var(--blood); color: var(--white); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink-wash); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blood); }
+
+.halftone {
+  background-image: radial-gradient(circle, var(--ink-grey) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes heroZoom {
+  0% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fallBounce {
+  0% { transform: translate(-50%, -120vh) rotate(-15deg); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(-50%, 10vh) rotate(5deg); }
+  70% { transform: translate(-50%, -5vh) rotate(-2deg); }
+  85% { transform: translate(-50%, 2vh) rotate(1deg); }
+  100% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes inkReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
