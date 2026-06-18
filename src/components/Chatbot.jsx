@@ -102,7 +102,7 @@ export default function Chatbot() {
                 { q: 'What are your skills?', a: 'AI/ML, Agents, Full-Stack, DevOps...' },
                 { q: 'Tell me about your projects', a: 'SCOUT, NEXUS, SHARP, VERITAS...' },
                 { q: 'How can I contact you?', a: 'Email, LinkedIn, GitHub...' },
-                { q: 'What is your education?', a: 'B.Tech CSE at ABES Engineering' },
+                { q: 'What is your education?', a: 'B.Tech CSE at GLA University Mathura' },
                 { q: 'Tell me about SCOUT', a: 'Self-evolving memory agent with LangChain' },
                 { q: 'What AI experience do you have?', a: 'LLMs, RAG, agents, fine-tuning...' },
               ].map((item, i) => (

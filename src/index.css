@@ -19,6 +19,7 @@
   --font-body: 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --t-fast: 150ms var(--ease);
   --t-base: 300ms var(--ease);
   --t-slow: 600ms var(--ease);
@@ -62,30 +63,88 @@ body {
   100% { transform: scale(1); }
 }
 
-@keyframes fallBounce {
-  0% { transform: translate(-50%, -120vh) rotate(-15deg); opacity: 0; }
-  15% { opacity: 1; }
-  50% { transform: translate(-50%, 10vh) rotate(5deg); }
-  70% { transform: translate(-50%, -5vh) rotate(-2deg); }
-  85% { transform: translate(-50%, 2vh) rotate(1deg); }
-  100% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
-}
-
-@keyframes pulseRing {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(2.5); opacity: 0; }
-}
-
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes inkReveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
+/* Utility classes */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(196, 30, 58, 0.15);
+  border-radius: var(--r-lg);
 }
 
+.ink-gradient {
+  background: linear-gradient(180deg, var(--ink) 0%, transparent 8%, transparent 92%, var(--ink) 100%);
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Micro-interaction utilities */
+.hover-glow {
+  transition: box-shadow var(--t-base), transform var(--t-base);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 24px var(--blood-glow);
+}
+
+.hover-lift {
+  transition: transform var(--t-base), box-shadow var(--t-base);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.hover-border {
+  transition: border-color var(--t-fast);
+}
+.hover-border:hover {
+  border-color: var(--blood);
+}
+
+/* Card hover states */
+.project-card, .skill-card {
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover, .skill-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Subtle red pulse on accent elements */
+@keyframes bloodPulse {
+  0%, 100% { box-shadow: 0 0 8px var(--blood-glow); }
+  50% { box-shadow: 0 0 16px var(--blood-glow); }
+}
+
+.blood-accent {
+  animation: bloodPulse 3s ease-in-out infinite;
+}
+
+/* Smooth scroll offset for fixed nav */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--blood);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

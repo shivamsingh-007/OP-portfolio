@@ -3,6 +3,8 @@ import Loader from './components/Loader';
 import { SlideTabsExample } from './components/ui/slide-tabs';
 import LogoLoop from './components/ui/LogoLoop';
 import Hero from './components/Hero';
+import FallingSpider from './components/FallingSpider';
+import SectionBg from './components/SectionBg';
 
 import CircularGallery from './components/ui/CircularGallery';
 import Origin from './components/Origin';
@@ -36,53 +38,10 @@ const techLogos = [
   { node: <SiGithubactions />, title: "GitHub Actions", href: "https://github.com/features/actions" },
 ];
 
-function FallingSpider({ stopAtRef }) {
-  const [scrollY, setScrollY] = useState(0);
-  const [stopped, setStopped] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrollY(window.scrollY);
-      if (stopAtRef?.current) {
-        const rect = stopAtRef.current.getBoundingClientRect();
-        const centerOfSection = rect.top + rect.height / 2;
-        if (centerOfSection <= window.innerHeight * 0.5) setStopped(true);
-        else setStopped(false);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [stopAtRef]);
-
-  const heroH = window.innerHeight;
-  const docH = document.documentElement.scrollHeight - heroH;
-  const pastHero = Math.max(0, scrollY - heroH);
-  const progress = docH > 0 ? pastHero / docH : 0;
-
-  const visible = scrollY > heroH * 0.8;
-  const fallY = stopped ? 50 : (-8 + progress * 100);
-
-  return (
-    <div style={{
-      position: 'fixed', left: '50%', top: `${fallY}vh`,
-      transform: 'translateX(-50%)', width: 'clamp(90px, 11vw, 150px)',
-      zIndex: 70, pointerEvents: 'none', opacity: visible ? 0.85 : 0,
-      transition: stopped ? 'top 0.9s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease' : 'opacity 0.5s ease',
-    }}>
-      <div style={{
-        position: 'absolute', inset: '-16px -4px',
-        background: 'var(--ink)', borderRadius: 'var(--r-lg)',
-        zIndex: -1,
-      }} />
-      <video src="/assets/motion.mp4" autoPlay muted loop playsInline preload="auto"
-        style={{ width: '100%', height: 'auto', borderRadius: 'var(--r-md)', position: 'relative' }} />
-    </div>
-  );
-}
-
 export default function App() {
   const [loading, setLoading] = useState(true);
   const contactRef = useRef(null);
+  const projectsRef = useRef(null);
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 2600);
@@ -94,70 +53,43 @@ export default function App() {
       {loading && <Loader />}
       {!loading && (
         <>
-          <FallingSpider stopAtRef={contactRef} />
+          <a href="#main-content" style={{
+            position: 'absolute', top: -100, left: 16, zIndex: 9999,
+            background: 'var(--blood)', color: 'var(--white)', padding: '8px 16px',
+            borderRadius: 'var(--r-sm)', fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+            textDecoration: 'none', fontWeight: 600,
+          }}
+            onFocus={e => { e.target.style.top = '16px'; }}
+            onBlur={e => { e.target.style.top = '-100px'; }}
+          >Skip to content</a>
+          <FallingSpider stopAtRef={contactRef} behindSectionRef={projectsRef} />
           <SlideTabsExample />
-          <main>
+          <main id="main-content" role="main">
             <Hero />
-            <div style={{ position: 'relative' }}>
-              <div style={{
-                position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden',
-              }}>
-                <img src="/assets/gallery-bg.jpg" alt="" style={{
-                  width: '100%', height: '100%', objectFit: 'cover',
-                  filter: 'grayscale(1) brightness(0.3) contrast(1.3)',
-                  opacity: 0.5,
-                }} />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(180deg, var(--ink) 0%, transparent 8%, transparent 92%, var(--ink) 100%)',
-                }} />
-              </div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
+            <section aria-label="Project gallery" style={{ background: 'var(--ink)' }}>
+              <SectionBg src="/assets/gallery-bg.jpg" brightness={0.3} opacity={0.5} clip={false}>
                 <CircularGallery items={galleryItems} />
-              </div>
-            </div>
-            <div style={{ position: 'relative' }}>
-              <div style={{
-                position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden',
-              }}>
-                <img src="/assets/origin-powers-bg.webp" alt="" style={{
-                  width: '100%', height: '100%', objectFit: 'cover',
-                  filter: 'grayscale(1) brightness(0.35) contrast(1.3)',
-                  opacity: 0.55,
-                }} />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(180deg, var(--ink) 0%, transparent 8%, transparent 92%, var(--ink) 100%)',
-                }} />
-              </div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
+              </SectionBg>
+            </section>
+            <section aria-label="About me">
+              <SectionBg src="/assets/origin-powers-bg.webp" brightness={0.35} opacity={0.55}>
                 <div id="origin"><Origin /></div>
                 <div id="powers"><Powers /></div>
-              </div>
-            </div>
-            <div id="missions"><Missions /></div>
-            <div id="allies"><Allies /></div>
-            <div style={{ position: 'relative' }}>
-              <div style={{
-                position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden',
-              }}>
-                <img src="/assets/game-bg.jpg" alt="" style={{
-                  width: '100%', height: '100%', objectFit: 'cover',
-                  filter: 'grayscale(1) brightness(0.4) contrast(1.3)',
-                  opacity: 0.6,
-                  transform: 'rotate(180deg)',
-                }} />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(180deg, var(--ink) 0%, transparent 8%, transparent 92%, var(--ink) 100%)',
-                }} />
-              </div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
+              </SectionBg>
+            </section>
+            <section ref={projectsRef} aria-label="Projects">
+              <div id="missions"><Missions /></div>
+            </section>
+            <section aria-label="Education">
+              <div id="allies"><Allies /></div>
+            </section>
+            <section aria-label="Interactive games and chatbot">
+              <SectionBg src="/assets/game-bg.jpg" brightness={0.4} opacity={0.6} rotate>
                 <Chatbot />
                 <Arcade />
-              </div>
-            </div>
-            <div style={{
+              </SectionBg>
+            </section>
+            <section aria-label="Technology stack" style={{
               padding: 'clamp(32px, 5vw, 60px) clamp(16px, 4vw, 80px)',
               overflow: 'hidden',
             }}>
@@ -180,7 +112,7 @@ export default function App() {
                 fadeOutColor="#0A0A0A"
                 ariaLabel="Technology stack"
               />
-            </div>
+            </section>
             <div ref={contactRef} id="contact">
               <Contact />
             </div>

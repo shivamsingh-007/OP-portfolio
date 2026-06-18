@@ -1,5 +1,6 @@
 import { Brain, Code, Cpu, Cloud, Database, Wrench } from 'lucide-react';
 import SplitSection from './SplitSection';
+import { useGsapStagger } from '../hooks/useGsap';
 
 const skillGroups = [
   {
@@ -28,10 +29,10 @@ const skillGroups = [
   },
 ];
 
-function SkillCard({ group, idx }) {
+function SkillCard({ group }) {
   const Icon = group.icon;
   return (
-    <div style={{
+    <div className="skill-card" style={{
       background: 'rgba(10,10,10,0.75)', border: '1px solid rgba(245,240,232,0.04)',
       borderRadius: 'var(--r-md)', padding: 18, position: 'relative', overflow: 'hidden',
       cursor: 'default', transition: 'all 0.3s ease', marginBottom: 12,
@@ -60,23 +61,25 @@ function SkillCard({ group, idx }) {
 
 export default function Powers() {
   const mid = Math.ceil(skillGroups.length / 2);
+  const leftRef = useGsapStagger('.skill-card', { y: 30, stagger: 0.1, duration: 0.7 });
+  const rightRef = useGsapStagger('.skill-card', { y: 30, stagger: 0.1, duration: 0.7 });
 
   return (
     <SplitSection
       label="POWERS"
       left={
-        <>
+        <div ref={leftRef}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--paper)', textTransform: 'uppercase', marginBottom: 20 }}>
             <span style={{ color: 'var(--blood)' }}>SUPER</span> POWERS
           </h2>
-          {skillGroups.slice(0, mid).map((g, i) => <SkillCard key={i} group={g} idx={i} />)}
-        </>
+          {skillGroups.slice(0, mid).map((g, i) => <SkillCard key={i} group={g} />)}
+        </div>
       }
       right={
-        <>
+        <div ref={rightRef}>
           <div style={{ height: 60 }} />
-          {skillGroups.slice(mid).map((g, i) => <SkillCard key={i} group={g} idx={i + mid} />)}
-        </>
+          {skillGroups.slice(mid).map((g, i) => <SkillCard key={i} group={g} />)}
+        </div>
       }
     />
   );

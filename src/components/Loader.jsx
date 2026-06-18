@@ -11,7 +11,7 @@ export default function Loader() {
   }, []);
 
   return (
-    <div style={{
+    <div role="progressbar" aria-valuenow={Math.min(Math.floor(p), 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Loading" style={{
       position: 'fixed', inset: 0, zIndex: 9999, background: 'var(--ink)',
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
       fontFamily: 'var(--font-display)',

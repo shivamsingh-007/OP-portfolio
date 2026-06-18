@@ -33,23 +33,38 @@ export default function SplitSection({ left, right, label = '' }) {
   }, []);
 
   return (
-    <div ref={ref} className="reveal" style={{
+    <div ref={ref} className="reveal split-section" style={{
       display: 'grid',
       gridTemplateColumns: '1fr clamp(60px, 10vw, 140px) 1fr',
       minHeight: '80vh',
       position: 'relative',
     }}>
-      {/* Left half — padded away from center */}
-      <div style={{
+      <style>{`
+        @media (max-width: 768px) {
+          .split-section {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+          .split-section .split-center {
+            display: none !important;
+          }
+          .split-section .split-left,
+          .split-section .split-right {
+            order: unset !important;
+            padding: 24px 16px !important;
+          }
+        }
+      `}</style>
+
+      <div className="split-left" style={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: 'clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px) clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px)',
+        padding: 'clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px)',
         order: 0,
       }}>
         {left}
       </div>
 
-      {/* Center red line + station (z-index: 1) */}
-      <div style={{
+      <div className="split-center" style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         position: 'relative', order: 1, zIndex: 1,
       }}>
@@ -76,10 +91,9 @@ export default function SplitSection({ left, right, label = '' }) {
         )}
       </div>
 
-      {/* Right half — padded away from center */}
-      <div style={{
+      <div className="split-right" style={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: 'clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px) clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px)',
+        padding: 'clamp(32px, 5vw, 72px) clamp(24px, 4vw, 56px)',
         order: 2,
       }}>
         {right}

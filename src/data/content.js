@@ -10,7 +10,7 @@ export const personal = {
   tagline: 'Building autonomous AI agents that think, plan, and execute.',
   about: `I'm Shivam Singh — an AI engineer obsessed with building autonomous agents that don't just respond, but think, plan, and execute. From self-evolving memory systems to multi-agent orchestration frameworks, I craft AI that operates independently while staying aligned with human intent.`,
   education: [
-    { degree: 'B.Tech in Computer Science', school: 'ABES Engineering College', year: '2022-2026', detail: 'Focus on AI/ML and Systems Design' },
+    { degree: 'B.Tech in Computer Science', school: 'GLA University Mathura', year: '2022-2026', detail: 'Focus on AI/ML and Systems Design' },
   ],
   skills: [
     { name: 'AI/ML Engineering', icon: 'brain', items: ['LLMs', 'RAG', 'Fine-tuning', 'Embeddings', 'Vector DBs'] },
@@ -123,7 +123,7 @@ export const personal = {
     projects: "Shivam's projects include <strong>SCOUT</strong> (memory agent), <strong>NEXUS</strong> (multi-agent orchestration), <strong>SHARP</strong> (harness system), <strong>VERITAS</strong> (fact-checking), <strong>GestureFlow</strong> (CV automation), <strong>JARVIS</strong> (local AI assistant), <strong>COMPACT</strong> (context compression), <strong>RepoBugFix</strong> (auto-debugging), <strong>Chill-PAL</strong> (AI companion), and <strong>CyberSentryAI</strong> (cybersecurity).",
     skills: "Shivam specializes in AI/ML Engineering, Autonomous Agents, Full-Stack Development, Systems Design, DevOps, and Data Engineering. He works with LLMs, RAG, fine-tuning, LangChain, AutoGen, React, Python, and cloud platforms.",
     about: "Shivam Singh is an AI engineer from Mathura, India, focused on building autonomous agents that think, plan, and execute. He's passionate about creating AI systems that operate independently while staying aligned with human intent.",
-    education: "Shivam is pursuing his B.Tech in Computer Science at ABES Engineering College (2022-2026), with a focus on AI/ML and Systems Design.",
+    education: "Shivam is pursuing his B.Tech in Computer Science at GLA University Mathura (2022-2026), with a focus on AI/ML and Systems Design.",
     contact: "You can reach Shivam via email, LinkedIn, GitHub, or LeetCode. Check the Contact section for direct links!",
     scout: "<strong>SCOUT</strong> is a self-evolving memory agent. It uses LangChain + ChromaDB to learn, recall, and evolve its knowledge base autonomously over time without human intervention.",
     nexus: "<strong>NEXUS</strong> is a multi-agent orchestration framework. It coordinates multiple AI agents using AutoGen and CrewAI to solve complex tasks through collaborative planning and execution.",
