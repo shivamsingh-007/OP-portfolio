@@ -49,7 +49,7 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.5s ease' }}>
+    <div style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.5s ease', overflowX: 'hidden' }}>
       {loading && <Loader />}
       {!loading && (
         <>
@@ -66,7 +66,7 @@ export default function App() {
           <SlideTabsExample />
           <main id="main-content" role="main">
             <Hero />
-            <section aria-label="Project gallery" style={{ background: 'var(--ink)' }}>
+            <section aria-label="Project gallery" style={{ background: 'var(--ink)', overflow: 'hidden' }}>
               <SectionBg src="/assets/gallery-bg.jpg" brightness={0.3} opacity={0.5} clip={false}>
                 <CircularGallery items={galleryItems} />
               </SectionBg>

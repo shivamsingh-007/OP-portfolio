@@ -42,7 +42,7 @@ export default function Hero() {
         position: 'absolute',
         top: '50%', left: '50%',
         transform: `translate(-50%, -50%) translate(${mx * 0.2}px, ${-parallaxY * 0.5 + my * 0.2}px)`,
-        width: '100vw', height: '100vh',
+        width: '100%', height: '100%',
         backgroundImage: 'url(/assets/spiderman.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
